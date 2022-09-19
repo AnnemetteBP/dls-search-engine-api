@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to another Search Engine</h1>
+    <p>Enter one word and search for matches in the Enron dataset documents.</p>
+    <form>
+        <label for="searchfield">Enter your search word:</label>
+        <input type="text" id="searchfield" name="searchfield">
+        <button type="button" class="btn btn-primary" onclick="callAPI()">Call API</button>
+    </form>
+    <ul id="results">
+        
+    </ul>
+</div>
+
+
+@section scripts {
+    <script>
+        function callAPI() {
+            console.log("calling API...");
+
+            $.ajax({
+                url: `https://localhost:51801/WeatherForecast/Search?terms=` + document.getElementById("searchfield").value,
+                method: 'GET',
+                success: function (data) {
+                    var ul = document.getElementById("results");
+                    $(ul).empty();
+                    for(var i = 0; i < data.length; i++){
+                        var li = document.createElement('li');
+                        li.appendChild(document.createTextNode(data[i]));
+                        ul.appendChild(li);
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+}

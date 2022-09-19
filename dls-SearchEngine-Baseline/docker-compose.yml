@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  searchapi:
+    image: ${DOCKER_REGISTRY-}searchapi
+    build:
+      context: .
+      dockerfile: SearchApi/Dockerfile
+
+  searchui:
+    image: ${DOCKER_REGISTRY-}searchui
+    build:
+      context: .
+      dockerfile: SearchUi/Dockerfile
+
